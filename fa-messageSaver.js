@@ -77,17 +77,19 @@ var messageSaver = (function($, undefined) {
 			$FormSubmit = $FormPost.find('input[name="post"]'),
 			$FormMessage = $(".sceditor-container textarea");
 
+		// Enregistre le texte ajouté au fur et à mesure
+		$FormMessage.bind("input", function() {
+			savePost(sUsername, $FormMessage.val(), sForumURL, sTopicURL);
+		});
+
 		// Ajouter un bouton de chargement si un élément a été trouvé
 		if (localStorage.getItem(sForumURL)) {
 			$FormSubmit.before('<input type="button" class="mainoption btn-loader" id="ms-loader" value="Charger le message sauvegardé" />&nbsp;&nbsp;');
 		}
 
+		// Charger le texte enregistré dans le champ de formulaire
 		$FormPost.on("click", "#ms-loader", function() {
 			loadPost(sUsername, $FormMessage, sForumURL, sTopicURL);
-		});
-
-		$FormMessage.bind("input", function() {
-			savePost(sUsername, $FormMessage.val(), sForumURL, sTopicURL);
 		});
 	};
 
