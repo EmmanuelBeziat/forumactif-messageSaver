@@ -3,7 +3,7 @@
  * Version: 1.0
  * Description: Permet l'enregistrement automatique des messages dans les champs de post de forumactif
  * Auteur: Emmanuel "Manumanu" B
- * GitHub:
+ * GitHub: https://github.com/RhooManu/forumactif-messageSaver
  */
 
 /**
