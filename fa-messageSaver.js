@@ -8,7 +8,7 @@
 
 /**
  * Fonction principale
- * @return {function}           [Init]
+ * @return {[function]}           [Fonction Init]
  */
 var messageSaver = (function($, undefined) {
 	"use strict";
@@ -73,13 +73,13 @@ var messageSaver = (function($, undefined) {
 		var sForumURL = window.location.host,
 			sUsername = _userdata.username,
 			sTopicURL = urlParse("t"),
-			$FormPost = $('form[action="/post"]'),
+			$FormPost = $('form[action="/post"]').not("#quick_reply"),
 			$FormSubmit = $FormPost.find('input[name="post"]'),
 			$FormMessage = $(".sceditor-container textarea");
 
 		// Ajouter un bouton de chargement si un élément a été trouvé
 		if (localStorage.getItem(sForumURL)) {
-			$formPost.find('.catBottom').before('<input type="button" class="mainoption btn-loader" id="ms-loader" value="Charger le message sauvegardé" />&nbsp;&nbsp;');
+			$FormSubmit.before('<input type="button" class="mainoption btn-loader" id="ms-loader" value="Charger le message sauvegardé" />&nbsp;&nbsp;');
 		}
 
 		$FormPost.on("click", "#ms-loader", function() {
