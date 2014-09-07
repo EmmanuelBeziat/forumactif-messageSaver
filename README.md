@@ -15,7 +15,7 @@ Hé bien mes bons, **j'ai la solution** !
 Vous allez pouvoir écrire votre message en prenant autant de temps que vous le voulez. Vous allez pouvoir planter, fermer votre navigateur, redémarrer votre pc, puis revenir onze jours plus tard et retrouver votre message qui vous attendait sagement, à la virgule près. Le tout en permettant aux fondateurs de forums de quand même personnaliser leurs templates sans se soucier de la compatibilité de diverses classes.
 
 > "Nom de dieu Manu, tu nous vends du rêve par transpalettes de 12 !"
-
+éd
 Je sais, et la cerise sur le McParfait, c'est que ça tient en un seul petit script très facile à intégrer. Passons donc à la pratique.
 
 # Comment ça marche ?
@@ -28,7 +28,7 @@ Un petit clic sur ce dernier remplis le champ de texte avec le message sauvegard
 
 **À noter cependant :**
 - Dans certains cas (par exemple, revenir sur la page du message en cliquant sur le bouton "page suivante" du navigateur, le chargement est un peu altéré et le bouton est inactif. Il suffit de recharger à nouveau la page de post et tout fonctionne.
-- Dans le cas d'une édition, appuyer sur le bouton remplacera le contenu actuel du champ d'écrituer en totalité.
+- Dans le cas d'une édition, appuyer sur le bouton remplacera le contenu actuel du champ d'écriture en totalité.
 - Cela ne fonctionne que sur la page d'écriture complète (uniquement en mode d'édition "classique", c'est à dire avec le BBCode), pas sur le formulaire *Réponse rapide*.
 
 # Comment l'installer
