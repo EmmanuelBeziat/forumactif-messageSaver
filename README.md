@@ -29,7 +29,7 @@ Un petit clic sur ce dernier remplis le champ de texte avec le message sauvegard
 **À noter cependant :**
 - Dans certains cas (par exemple, revenir sur la page du message en cliquant sur le bouton "page suivante" du navigateur, le chargement est un peu altéré et le bouton est inactif. Il suffit de recharger à nouveau la page de post et tout fonctionne.
 - Dans le cas d'une édition, appuyer sur le bouton remplacera le contenu actuel du champ d'écriture en totalité.
-- Cela ne fonctionne que sur la page d'écriture complète (uniquement en mode d'édition "classique", c'est à dire avec le BBCode), pas sur le formulaire *Réponse rapide*.
+- Cela ne fonctionne que sur la page d'écriture complète (indifférement en mode d'édition "classique" (bbcode) ou "dynamique" (*wysiwyg*)), pas sur le formulaire *Réponse rapide*.
 
 # Comment l'installer
 
@@ -65,11 +65,14 @@ Cependant, il ne fonctionne pour l'instant que sur un forum phpBB2 (et éventuel
 
 Je songe aussi à ajouter de nouvelles fonctionnalités :
 -Sauvegarde possible sur plusieurs sujets différents
-Sauvegarde du titre en cas de nouveau sujet
-Prise en charge du formulaire de réponse rapide
+-Sauvegarde du titre en cas de nouveau sujet
+-Prise en charge du formulaire de réponse rapide
 
 Si vous avez d'autres fonctionnalités en tête, faites-le moi savoir.
 
 Si vous êtes développeur JS et que vous souhaitez voir le code pour l'adapter à vos besoin ou travailler dessus et proposer des ajouts ou autres améliorations, vous pouvez *forker*.
 
 **Enjoy !**
+
+## Remerciements
+- *Nihil Scar Winspeare* pour ses suggestions concernant l'API SCEditor et l'id utilisateur
