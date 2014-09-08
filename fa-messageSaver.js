@@ -1,6 +1,6 @@
 /**
  * Nom: messageSaver
- * Version: 1.0
+ * Version: 1.1
  * Description: Permet l'enregistrement automatique des messages dans les champs de post de forumactif
  * Auteur: Emmanuel "Manumanu" B
  * GitHub: https://github.com/RhooManu/forumactif-messageSaver
@@ -29,14 +29,14 @@ var messageSaver = (function($, undefined) {
 
 	/**
 	 * Enregistre le message en cours d'édition dans le WebStorage du navigateur
-	 * @param  {string} sUsername    [nom d'utilisateur]
+	 * @param  {string} sUserID    [nom d'utilisateur]
 	 * @param  {string} sFormMessage [message en cours d'écriture]
 	 * @param  {string} sForumURL    [url du forum]
 	 * @param  {string} sTopicURL    [url du sujet en cours]
 	 */
-	var savePost = function(sUsername, sFormMessage, sForumURL, sTopicURL) {
+	var savePost = function(sUserID, sFormMessage, sForumURL, sTopicURL) {
 		var oMessageSaved = {
-			username: sUsername,
+			userID: sUserID,
 			topicURL: sTopicURL,
 			message: sFormMessage
 		};
@@ -46,24 +46,44 @@ var messageSaver = (function($, undefined) {
 
 	/**
 	 * Charger le message stocké dans le WebStorage du navigateur
-	 * @param  {string} sUsername    [nom d'utilisateur]
-	 * @param  {object jQuery} $FormMessage [champ de texte d'écriture]
-	 * @param  {string} sForumURL    [url du forum]
-	 * @param  {string} sTopicURL    [url du sujet en cours]
+	 * @param  {string} sUserID 	[nom d'utilisateur]
+	 * @param  {object jQuery} $FormMessage	[champ de texte d'écriture]
+	 * @param  {string} sForumURL	[url du forum]
+	 * @param  {string} sTopicURL	[url du sujet en cours]
 	 */
-	var loadPost = function(sUsername, $FormMessage, sForumURL, sTopicURL) {
+	var loadPost = function(sUserID, $FormMessage, sForumURL, sTopicURL) {
 		var oMessageLoaded,
+			sErrorMessage = "\nIl n'y a pas de message à charger.",
 			sMessageSaved = localStorage.getItem(sForumURL);
 
-		// Si un message a été enregistré, récupérer le contenu
 		if (sMessageSaved != "undefined") {
 			oMessageLoaded = JSON.parse(sMessageSaved);
 
-			// Si le message correspond bien au forum actuel, à ce nom d'utilisateur, et au sujet en cours,
-			// Charger le contenu du message dans le champ de texte
-			if (oMessageLoaded.username === sUsername && oMessageLoaded.topicURL === sTopicURL && $FormMessage.val() === '')
-				$FormMessage.val(oMessageLoaded.message);
+			// Si un message a été enregistré, récupérer le contenu
+			checkMessageSaved(sUserID, $FormMessage.val(), sForumURL, sTopicURL) ? $FormMessage.val(oMessageLoaded.message) : alert("Erreur 1:\nLa vérification du message enregistré a échoué.");
 		}
+		else
+			alert("Erreur 2: Il n'y a aucun message sauvegardé dans le WebStorage");
+	};
+
+	/**
+	 * Vérifier s'il existe un message sauvegardé pour le sujet en cours
+	 * @param  {string} sUserID      [id d'utilisateur]
+	 * @param  {string} sFormMessage [ùessage e, cpirs d'écrotire]
+	 * @param  {string} sForumURL    [url du forum]
+	 * @param  {string} sTopicURL    [url du sujet en cours]
+	 * @return {booleen}             [renvoie true s'il y a une occurence]
+	 */
+	var checkMessageSaved = function(sUserID, sFormMessage, sForumURL, sTopicURL) {
+		var oMessageLoaded,
+			sMessageSaved = localStorage.getItem(sForumURL);
+
+		if (sMessageSaved != "undefined") {
+			oMessageLoaded = JSON.parse(sMessageSaved);
+
+			return (oMessageLoaded.userID === sUserID && oMessageLoaded.topicURL === sTopicURL && sFormMessage === '') ? true : false;
+		} else
+			return false;
 	};
 
 	/**
@@ -71,15 +91,15 @@ var messageSaver = (function($, undefined) {
 	 */
 	var init = function() {
 		var sForumURL = window.location.host,
-			sUsername = _userdata.username,
+			sUserID = _userdata.user_id,
 			sTopicURL = urlParse("t"),
 			$FormPost = $('form[action="/post"]').not("#quick_reply"),
 			$FormSubmit = $FormPost.find('input[name="post"]'),
-			$FormMessage = $(".sceditor-container textarea");
+			$FormMessage = $("#text_editor_textarea").sceditor("instance");
 
 		// Enregistre le texte ajouté au fur et à mesure
-		$FormMessage.bind("input", function() {
-			savePost(sUsername, $FormMessage.val(), sForumURL, sTopicURL);
+		$FormMessage.bind("keyup", function() {
+			savePost(sUserID, $FormMessage.val(), sForumURL, sTopicURL);
 		});
 
 		// Ajouter un bouton de chargement si un élément a été trouvé
@@ -89,7 +109,7 @@ var messageSaver = (function($, undefined) {
 
 		// Charger le texte enregistré dans le champ de formulaire
 		$FormPost.on("click", "#ms-loader", function() {
-			loadPost(sUsername, $FormMessage, sForumURL, sTopicURL);
+			loadPost(sUserID, $FormMessage, sForumURL, sTopicURL);
 		});
 	};
 
