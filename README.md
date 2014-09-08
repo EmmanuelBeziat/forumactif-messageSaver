@@ -64,9 +64,9 @@ Cependant, il ne fonctionne pour l'instant que sur un forum phpBB2 (et éventuel
 À terme, je voudrais évidemment rendre ce script compatible avec phpBB3 (et Invision s'il le faut).
 
 Je songe aussi à ajouter de nouvelles fonctionnalités :
--Sauvegarde possible sur plusieurs sujets différents
--Sauvegarde du titre en cas de nouveau sujet
--Prise en charge du formulaire de réponse rapide
+- Sauvegarde possible sur plusieurs sujets différents
+- Sauvegarde du titre en cas de nouveau sujet
+- Prise en charge du formulaire de réponse rapide
 
 Si vous avez d'autres fonctionnalités en tête, faites-le moi savoir.
 
