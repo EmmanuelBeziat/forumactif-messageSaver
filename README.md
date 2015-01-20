@@ -15,7 +15,7 @@ Hé bien mes bons, **j'ai la solution** !
 Vous allez pouvoir écrire votre message en prenant autant de temps que vous le voulez. Vous allez pouvoir planter, fermer votre navigateur, redémarrer votre pc, puis revenir onze jours plus tard et retrouver votre message qui vous attendait sagement, à la virgule près. Le tout en permettant aux fondateurs de forums de quand même personnaliser leurs templates sans se soucier de la compatibilité de diverses classes.
 
 > "Nom de dieu Manu, tu nous vends du rêve par transpalettes de 12 !"
-éd
+
 Je sais, et la cerise sur le McParfait, c'est que ça tient en un seul petit script très facile à intégrer. Passons donc à la pratique.
 
 # Comment ça marche ?
