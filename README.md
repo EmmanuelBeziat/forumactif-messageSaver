@@ -20,7 +20,7 @@ Je sais, et la cerise sur le McParfait, c'est que ça tient en un seul petit scr
 
 # Comment ça marche ?
 
-D'un point de vue utilisateur, c'est très simple : Celui-ci écrit tranquillement son message, et tout est normal. Si pour une raison ou une autre il doit revenir sur cette page sans avoir fini son message, un bouton apparaît entre "Prévisualiser" et "Envoyer".
+D'un point de vue utilisateur, c'est très simple : Celui-ci écrit tranquillement son message, et tout est normal. Si pour une raison ou une autre il doit revenir sur cette page sans avoir fini son message, un bouton apparaît entre "Prévisualiser" et "Envoyer" ; même dans le formulaire de réponse rapide !
 
 ![](http://img110.xooimage.com/files/e/2/e/exemple1-477058a.jpg)
 
@@ -37,7 +37,7 @@ Un petit clic sur ce dernier remplis le champ de texte avec le message sauvegard
 2. Assurez-vous que "Activer la gestion des codes Javascript" est bien actif, puis cliquez sur "Créer un nouveau javascript".
 3. Dans la nouvelle fenêtre, copiez-collez simplement ce code, tel quel :
 ```javascript
-var messageSaver=function(e,t){"use strict";var n=function(e){e=e.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var t="[\\?&]"+e+"=([^&#]*)",n=new RegExp(t),r=n.exec(window.location.href);return r===null?null:r[1]};var r=function(e,t,n,r){var i={userID:e,topicURL:r,message:t};localStorage.setItem(n,JSON.stringify(i))};var i=function(e,t,n,r){var i,o="\nIl n'y a pas de message à charger.",u=localStorage.getItem(n);if(u!="undefined"){i=JSON.parse(u);s(e,t.val(),n,r)?t.val(i.message):alert("Erreur 1:\nLa vérification du message enregistré a échoué.")}else alert("Erreur 2: Il n'y a aucun message sauvegardé dans le WebStorage")};var s=function(e,t,n,r){var i,s=localStorage.getItem(n);if(s!="undefined"){i=JSON.parse(s);return i.userID===e&&i.topicURL===r&&t===""?true:false}else return false};var o=function(){var t=window.location.host,s=_userdata.user_id,o=n("t"),u=e('form[action="/post"]').not("#quick_reply"),a=u.find('input[name="post"]'),f=e("#text_editor_textarea").sceditor("instance");f.bind("keyup",function(){r(s,f.val(),t,o)});if(localStorage.getItem(t)){a.before('<input type="button" class="mainoption btn-loader" id="ms-loader" value="Charger le message sauvegardé" />&nbsp;&nbsp;')}u.on("click","#ms-loader",function(){i(s,f,t,o)})};return{init:o}}(jQuery);$(window).load(function(){typeof _userdata=="undefined"?console.log("L'objet \"_userdata\" de forumactif n'a pas été trouvé. Le script de sauvegarde des messages en cours d'écriture ne peut pas fonctionner."):messageSaver.init()})
+var messageSaver=function(e,t){"use strict";var n=function(t){t=t.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var n="[\\?&]"+t+"=([^&#]*)",r=new RegExp(n),i=r.exec(window.location.href),s=e("#text_editor_textarea").siblings('input[name="'+t+'"]').val();return i===null?s:i[1]};var r=function(e,t,n,r){var i={userID:e,topicURL:r,message:t};localStorage.setItem(n,JSON.stringify(i))};var i=function(e,t,n,r){var i,o="\nIl n'y a pas de message à charger.",u=localStorage.getItem(n);if(u!="undefined"){i=JSON.parse(u);s(e,t.val(),n,r)?t.val(i.message):alert("Erreur 1:\nLa vérification du message enregistré a échoué.")}else alert("Erreur 2: Il n'y a aucun message sauvegardé dans le WebStorage")};var s=function(e,t,n,r){var i,s=localStorage.getItem(n);if(s!="undefined"){i=JSON.parse(s);return i.userID===e&&i.topicURL===r&&t===""?true:false}else return false};var o=function(){var t=window.location.host,s=_userdata.user_id,o=n("t"),u=e('form[action="/post"]'),a=u.find('input[name="post"]'),f=e("#text_editor_textarea").sceditor("instance");f.bind("keyup",function(){r(s,f.val(),t,o)});if(localStorage.getItem(t)){a.before('<input type="button" class="mainoption btn-loader" id="ms-loader" value="Charger le message sauvegardé" />&nbsp;&nbsp;')}u.on("click","#ms-loader",function(){i(s,f,t,o)})};return{init:o}}(jQuery);$(window).load(function(){typeof _userdata=="undefined"?console.log("L'objet \"_userdata\" de forumactif n'a pas été trouvé. Le script de sauvegarde des messages en cours d'écriture ne peut pas fonctionner."):messageSaver.init()})
 ```
 
 Validez, et c'est tout !
@@ -66,7 +66,6 @@ Cependant, il ne fonctionne pour l'instant que sur un forum phpBB2 (et éventuel
 Je songe aussi à ajouter de nouvelles fonctionnalités :
 - Sauvegarde possible sur plusieurs sujets différents
 - Sauvegarde du titre en cas de nouveau sujet
-- Prise en charge du formulaire de réponse rapide
 
 Si vous avez d'autres fonctionnalités en tête, faites-le moi savoir.
 
