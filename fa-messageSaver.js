@@ -1,6 +1,6 @@
 /**
  * Nom: messageSaver
- * Version: 1.1
+ * Version: 1.2
  * Description: Permet l'enregistrement automatique des messages dans les champs de post de forumactif
  * Auteur: Emmanuel "Manumanu" B
  * GitHub: https://github.com/RhooManu/forumactif-messageSaver
@@ -15,16 +15,17 @@ var messageSaver = (function($, undefined) {
 
 	/**
 	 * Parse l'url actuelle pour récupérer l'ID du sujet
-	 * @param  {string} sURL [url de la page en cours]
-	 * @return {string}      [id de la page en cours]
+	 * @param  {string} sID [code de la page en cours]
+	 * @return {string}      [ID de la page en cours]
 	 */
-	var urlParse = function(sURL) {
-		sURL = sURL.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-		var sRegexpModel = "[\\?&]" + sURL + "=([^&#]*)",
+	var getTopicID = function(sID) {
+		sID = sID.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+		var sRegexpModel = "[\\?&]" + sID + "=([^&#]*)",
 			oRegex = new RegExp(sRegexpModel),
-			aRegexResults = oRegex.exec(window.location.href);
+			aRegexResults = oRegex.exec(window.location.href),
+			sTopicID = $('#text_editor_textarea').siblings('input[name="'+sID+'"]').val();
 
-		return (aRegexResults === null) ? null : aRegexResults[1];
+		return (aRegexResults === null) ? sTopicID : aRegexResults[1];
 	};
 
 	/**
@@ -32,12 +33,12 @@ var messageSaver = (function($, undefined) {
 	 * @param  {string} sUserID    [nom d'utilisateur]
 	 * @param  {string} sFormMessage [message en cours d'écriture]
 	 * @param  {string} sForumURL    [url du forum]
-	 * @param  {string} sTopicURL    [url du sujet en cours]
+	 * @param  {string} sTopicID    [ID du sujet en cours]
 	 */
-	var savePost = function(sUserID, sFormMessage, sForumURL, sTopicURL) {
+	var savePost = function(sUserID, sFormMessage, sForumURL, sTopicID) {
 		var oMessageSaved = {
 			userID: sUserID,
-			topicURL: sTopicURL,
+			topicURL: sTopicID,
 			message: sFormMessage
 		};
 
@@ -49,9 +50,9 @@ var messageSaver = (function($, undefined) {
 	 * @param  {string} sUserID 	[nom d'utilisateur]
 	 * @param  {object jQuery} $FormMessage	[champ de texte d'écriture]
 	 * @param  {string} sForumURL	[url du forum]
-	 * @param  {string} sTopicURL	[url du sujet en cours]
+	 * @param  {string} sTopicID	[ID du sujet en cours]
 	 */
-	var loadPost = function(sUserID, $FormMessage, sForumURL, sTopicURL) {
+	var loadPost = function(sUserID, $FormMessage, sForumURL, sTopicID) {
 		var oMessageLoaded,
 			sErrorMessage = "\nIl n'y a pas de message à charger.",
 			sMessageSaved = localStorage.getItem(sForumURL);
@@ -60,7 +61,7 @@ var messageSaver = (function($, undefined) {
 			oMessageLoaded = JSON.parse(sMessageSaved);
 
 			// Si un message a été enregistré, récupérer le contenu
-			checkMessageSaved(sUserID, $FormMessage.val(), sForumURL, sTopicURL) ? $FormMessage.val(oMessageLoaded.message) : alert("Erreur 1:\nLa vérification du message enregistré a échoué.");
+			checkMessageSaved(sUserID, $FormMessage.val(), sForumURL, sTopicID) ? $FormMessage.val(oMessageLoaded.message) : alert("Erreur 1:\nLa vérification du message enregistré a échoué.");
 		}
 		else
 			alert("Erreur 2: Il n'y a aucun message sauvegardé dans le WebStorage");
@@ -71,17 +72,17 @@ var messageSaver = (function($, undefined) {
 	 * @param  {string} sUserID      [id d'utilisateur]
 	 * @param  {string} sFormMessage [ùessage e, cpirs d'écrotire]
 	 * @param  {string} sForumURL    [url du forum]
-	 * @param  {string} sTopicURL    [url du sujet en cours]
+	 * @param  {string} sTopicID    [ID du sujet en cours]
 	 * @return {booleen}             [renvoie true s'il y a une occurence]
 	 */
-	var checkMessageSaved = function(sUserID, sFormMessage, sForumURL, sTopicURL) {
+	var checkMessageSaved = function(sUserID, sFormMessage, sForumURL, sTopicID) {
 		var oMessageLoaded,
 			sMessageSaved = localStorage.getItem(sForumURL);
 
 		if (sMessageSaved != "undefined") {
 			oMessageLoaded = JSON.parse(sMessageSaved);
 
-			return (oMessageLoaded.userID === sUserID && oMessageLoaded.topicURL === sTopicURL && sFormMessage === '') ? true : false;
+			return (oMessageLoaded.userID === sUserID && oMessageLoaded.topicURL === sTopicID && sFormMessage === '') ? true : false;
 		} else
 			return false;
 	};
@@ -92,14 +93,14 @@ var messageSaver = (function($, undefined) {
 	var init = function() {
 		var sForumURL = window.location.host,
 			sUserID = _userdata.user_id,
-			sTopicURL = urlParse("t"),
-			$FormPost = $('form[action="/post"]').not("#quick_reply"),
+			sTopicID = getTopicID("t"),
+			$FormPost = $('form[action="/post"]'),
 			$FormSubmit = $FormPost.find('input[name="post"]'),
 			$FormMessage = $("#text_editor_textarea").sceditor("instance");
 
 		// Enregistre le texte ajouté au fur et à mesure
 		$FormMessage.bind("keyup", function() {
-			savePost(sUserID, $FormMessage.val(), sForumURL, sTopicURL);
+			savePost(sUserID, $FormMessage.val(), sForumURL, sTopicID);
 		});
 
 		// Ajouter un bouton de chargement si un élément a été trouvé
@@ -109,7 +110,7 @@ var messageSaver = (function($, undefined) {
 
 		// Charger le texte enregistré dans le champ de formulaire
 		$FormPost.on("click", "#ms-loader", function() {
-			loadPost(sUserID, $FormMessage, sForumURL, sTopicURL);
+			loadPost(sUserID, $FormMessage, sForumURL, sTopicID);
 		});
 	};
 
