@@ -20,7 +20,7 @@ Je sais, et la cerise sur le McParfait, c'est que ça tient en un seul petit scr
 
 # Comment ça marche ?
 
-D'un point de vue utilisateur, c'est très simple : Celui-ci écrit tranquillement son message, et tout est normal. Si pour une raison ou une autre il doit revenir sur cette page sans avoir fini son message, un bouton apparaît entre "Prévisualiser" et "Envoyer".
+D'un point de vue utilisateur, c'est très simple : Celui-ci écrit tranquillement son message, et tout est normal. Si pour une raison ou une autre il doit revenir sur cette page sans avoir fini son message, un bouton apparaît entre "Prévisualiser" et "Envoyer" ; même dans le formulaire de réponse rapide !
 
 ![](http://img110.xooimage.com/files/e/2/e/exemple1-477058a.jpg)
 
@@ -66,7 +66,6 @@ Cependant, il ne fonctionne pour l'instant que sur un forum phpBB2 (et éventuel
 Je songe aussi à ajouter de nouvelles fonctionnalités :
 - Sauvegarde possible sur plusieurs sujets différents
 - Sauvegarde du titre en cas de nouveau sujet
-- Prise en charge du formulaire de réponse rapide
 
 Si vous avez d'autres fonctionnalités en tête, faites-le moi savoir.
 
