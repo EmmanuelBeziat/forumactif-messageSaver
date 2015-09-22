@@ -1,9 +1,9 @@
-/**
+/*!
  * Nom: messageSaver
  * Version: 1.2
  * Description: Permet l'enregistrement automatique des messages dans les champs de post de forumactif
  * Auteur: Emmanuel "Manumanu" B
- * GitHub: https://github.com/RhooManu/forumactif-messageSaver
+ * GitHub: https://github.com/EmmanuelBeziat/forumactif-messageSaver
  */
 
 /**
@@ -61,7 +61,12 @@ var messageSaver = (function($, undefined) {
 			oMessageLoaded = JSON.parse(sMessageSaved);
 
 			// Si un message a été enregistré, récupérer le contenu
-			checkMessageSaved(sUserID, $FormMessage.val(), sForumURL, sTopicID) ? $FormMessage.val(oMessageLoaded.message) : alert("Erreur 1:\nLa vérification du message enregistré a échoué.");
+			if (checkMessageSaved(sUserID, $FormMessage.val(), sForumURL, sTopicID)) {
+				$FormMessage.val(oMessageLoaded.message);
+			}
+			else {
+				alert("Erreur 1:\nLa vérification du message enregistré a échoué.");
+			}
 		}
 		else
 			alert("Erreur 2: Il n'y a aucun message sauvegardé dans le WebStorage");
@@ -130,7 +135,10 @@ var messageSaver = (function($, undefined) {
 $(window).load(function() {
 
 	// Lancer le script uniquement si les variables forumactifs sont bien initialisées
-	(typeof(_userdata) == "undefined") ?
-		console.log("L'objet \"_userdata\" de forumactif n'a pas été trouvé. Le script de sauvegarde des messages en cours d'écriture ne peut pas fonctionner.") :
+	if (typeof(_userdata) == "undefined") {
+		console.log("L'objet \"_userdata\" de forumactif n'a pas été trouvé. Le script de sauvegarde des messages en cours d'écriture ne peut pas fonctionner.");
+	}
+	else {
 		messageSaver.init();
+	}
 });
