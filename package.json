@@ -1,0 +1,30 @@
+{
+  "name": "forumactif-messagesaver",
+  "version": "1.2.0",
+  "description": "Permet de sauvegarder les messages en cours d'écriture sur Forumactif",
+  "main": "fa-messageSaver.min.js",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RhooManu/forumactif-messageSaver.git"
+  },
+  "keywords": [
+    "forumactif",
+    "javascript",
+    "messages"
+  ],
+  "author": "EmmanuelBeziat",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/RhooManu/forumactif-messageSaver/issues"
+  },
+  "homepage": "https://github.com/RhooManu/forumactif-messageSaver#readme"
+}
