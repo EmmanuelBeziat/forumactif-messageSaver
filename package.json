@@ -1,30 +1,35 @@
 {
-  "name": "forumactif-messagesaver",
+  "name": "fa-messagesaver",
   "version": "1.2.0",
   "description": "Permet de sauvegarder les messages en cours d'écriture sur Forumactif",
   "main": "fa-messageSaver.min.js",
   "dependencies": {
-    "gulp": "^3.9.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.4.1"
+    "gulp": "^4.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.2"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp script",
+    "watch": "gulp lookup"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RhooManu/forumactif-messageSaver.git"
+    "url": "git+https://github.com/emmanuelbeziat/forumactif-messageSaver.git"
   },
   "keywords": [
     "forumactif",
     "javascript",
     "messages"
   ],
-  "author": "EmmanuelBeziat",
+  "author": "Emmanuel Beziat",
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/RhooManu/forumactif-messageSaver/issues"
+    "url": "https://github.com/emmanuelbeziat/forumactif-messageSaver/issues"
   },
-  "homepage": "https://github.com/RhooManu/forumactif-messageSaver#readme"
+  "homepage": "https://github.com/emmanuelbeziat/forumactif-messageSaver#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "gulp-babel": "^8.0.0"
+  }
 }
