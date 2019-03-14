@@ -10,7 +10,6 @@
  * Fonction principale
  * @return {[function]}           [Fonction Init]
  */
-
 const messageSaver = ($ => {
 	'use strict'
 

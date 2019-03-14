@@ -30,7 +30,9 @@ function script () {
 		.pipe(babel({
 			presets: ['@babel/preset-env']
 		}))
-		.pipe(uglify())
+		.pipe(uglify({
+			output: { comments: '/^!/' }
+		}))
 		.pipe(rename({ extname: '.min.js' }))
 		.pipe(dest('./'))
 }
